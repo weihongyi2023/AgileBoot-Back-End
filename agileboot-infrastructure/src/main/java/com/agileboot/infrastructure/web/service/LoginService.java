@@ -27,8 +27,6 @@ import com.agileboot.orm.common.enums.ConfigKeyEnum;
 import com.agileboot.orm.common.enums.LoginStatusEnum;
 import com.agileboot.orm.system.entity.SysUserEntity;
 import com.google.code.kaptcha.Producer;
-import java.awt.image.BufferedImage;
-import javax.annotation.Resource;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,6 +37,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.FastByteArrayOutputStream;
+
+import javax.annotation.Resource;
+import java.awt.image.BufferedImage;
 
 /**
  * 登录校验方法
@@ -199,7 +200,7 @@ public class LoginService {
         return StrUtil.str(decryptBytes, CharsetUtil.CHARSET_UTF_8);
     }
 
-    private boolean isCaptchaOn() {
+    public boolean isCaptchaOn() {
         return Convert.toBool(guavaCache.configCache.get(ConfigKeyEnum.CAPTCHA.getValue()));
     }
 

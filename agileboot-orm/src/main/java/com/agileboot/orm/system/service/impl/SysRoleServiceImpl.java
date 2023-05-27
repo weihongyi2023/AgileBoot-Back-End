@@ -8,10 +8,11 @@ import com.agileboot.orm.system.mapper.SysUserMapper;
 import com.agileboot.orm.system.service.ISysRoleService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import java.util.List;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -55,6 +56,5 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRoleEntity
     public List<SysMenuEntity> getMenuListByRoleId(Long roleId) {
         return baseMapper.getMenuListByRoleId(roleId);
     }
-
 
 }

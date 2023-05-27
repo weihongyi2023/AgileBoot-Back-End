@@ -6,13 +6,15 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
+import com.agileboot.domain.system.config.command.ConfigAddCommand;
 import com.agileboot.domain.system.config.command.ConfigUpdateCommand;
 import com.agileboot.orm.system.entity.SysConfigEntity;
 import com.agileboot.orm.system.service.ISysConfigService;
+import lombok.Data;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import lombok.Data;
 
 /**
  * @author valarchie
@@ -52,6 +54,20 @@ public class ConfigModel extends SysConfigEntity {
 
         if (!configOptionSet.isEmpty() && !configOptionSet.contains(getConfigValue())) {
             throw new ApiException(ErrorCode.Business.CONFIG_VALUE_IS_NOT_IN_OPTIONS);
+        }
+    }
+
+    public void loadAddCommand(ConfigAddCommand config) {
+        this.setConfigKey(config.getConfigKey());
+        this.setConfigValue(config.getConfigValue());
+        this.setConfigName(config.getConfigName());
+        this.setIsAllowChange(config.getIsAllowChange());
+        this.setRemark(config.getRemark());
+    }
+
+    public void checkConfigKeyIsUnique(String configKey) {
+        if (configService.isConfigKeyDuplicated(configKey)) {
+            throw new ApiException(ErrorCode.Business.CONFIG_VALUE_EXIST);
         }
     }
 

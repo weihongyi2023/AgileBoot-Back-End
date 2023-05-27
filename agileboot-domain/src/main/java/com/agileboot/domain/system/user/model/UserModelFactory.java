@@ -2,6 +2,7 @@ package com.agileboot.domain.system.user.model;
 
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
+import com.agileboot.domain.system.config.model.ConfigModelFactory;
 import com.agileboot.domain.system.dept.model.DeptModelFactory;
 import com.agileboot.domain.system.post.model.PostModelFactory;
 import com.agileboot.domain.system.role.model.RoleModelFactory;
@@ -31,6 +32,9 @@ public class UserModelFactory {
     @NonNull
     private RoleModelFactory roleModelFactory;
 
+    @NonNull
+    private ConfigModelFactory configModelFactory;
+
     public UserModel loadById(Long userId) {
         SysUserEntity byId = userService.getById(userId);
         if (byId == null) {
@@ -40,7 +44,7 @@ public class UserModelFactory {
     }
 
     public UserModel create() {
-        return new UserModel(userService, postModelFactory, deptModelFactory, roleModelFactory);
+        return new UserModel(userService, postModelFactory, deptModelFactory, roleModelFactory,configModelFactory);
     }
 
 }

@@ -34,5 +34,18 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
         return one.getConfigValue();
     }
 
+    @Override
+    public SysConfigEntity getConfigByKey(String key) {
+        QueryWrapper<SysConfigEntity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("config_key", key);
+        return this.getOne(queryWrapper);
+    }
+
+    @Override
+    public boolean isConfigKeyDuplicated(String key) {
+        QueryWrapper<SysConfigEntity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("config_key", key);
+        return this.baseMapper.exists(queryWrapper);
+    }
 
 }

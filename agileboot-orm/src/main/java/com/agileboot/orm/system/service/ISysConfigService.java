@@ -20,4 +20,17 @@ public interface ISysConfigService extends IService<SysConfigEntity> {
      */
     String getConfigValueByKey(String key);
 
+    /**
+     * 通过ke获取配置
+     * @param key
+     * @return
+     */
+    SysConfigEntity getConfigByKey(String key);
+
+    /**
+     * 校验配置Key 是否重复
+     * @param configKey
+     * @return
+     */
+    boolean isConfigKeyDuplicated(String configKey);
 }

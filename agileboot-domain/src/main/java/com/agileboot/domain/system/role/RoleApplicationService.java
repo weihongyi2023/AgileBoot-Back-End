@@ -24,11 +24,12 @@ import com.agileboot.orm.system.service.ISysRoleService;
 import com.agileboot.orm.system.service.ISysUserService;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import java.util.List;
-import java.util.stream.Collectors;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author valarchie
@@ -173,6 +174,5 @@ public class RoleApplicationService {
             CacheCenter.userCache.delete(userId);
         }
     }
-
 
 }

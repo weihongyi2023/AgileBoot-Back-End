@@ -8,6 +8,8 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
+
 /**
  * 配置模型工厂
  * @author valarchie
@@ -25,6 +27,14 @@ public class ConfigModelFactory {
             throw new ApiException(ErrorCode.Business.OBJECT_NOT_FOUND, configId, "参数配置");
         }
         return new ConfigModel(byId, configService);
+    }
+
+    public ConfigModel loadByConfigKey(String configKey) {
+        SysConfigEntity entity = configService.getConfigByKey(configKey);
+        if (Objects.isNull(entity)) {
+            return new ConfigModel(new SysConfigEntity(), configService);
+        }
+        return new ConfigModel(entity, configService);
     }
 
     public ConfigModel create() {

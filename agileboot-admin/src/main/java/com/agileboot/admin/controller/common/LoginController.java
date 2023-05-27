@@ -3,11 +3,11 @@ package com.agileboot.admin.controller.common;
 import cn.hutool.core.util.StrUtil;
 import com.agileboot.common.config.AgileBootConfig;
 import com.agileboot.common.core.dto.ResponseDTO;
-import com.agileboot.common.exception.error.ErrorCode.Business;
 import com.agileboot.domain.common.cache.CacheCenter;
 import com.agileboot.domain.common.dto.UserPermissionDTO;
 import com.agileboot.domain.system.menu.MenuApplicationService;
 import com.agileboot.domain.system.menu.dto.RouterDTO;
+import com.agileboot.domain.system.user.UserApplicationService;
 import com.agileboot.domain.system.user.command.AddUserCommand;
 import com.agileboot.domain.system.user.dto.UserDTO;
 import com.agileboot.infrastructure.annotations.RateLimit;
@@ -23,13 +23,14 @@ import com.agileboot.infrastructure.web.domain.ratelimit.RateLimitKey;
 import com.agileboot.infrastructure.web.service.LoginService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import java.util.List;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * 首页
@@ -49,6 +50,9 @@ public class LoginController {
 
     @NonNull
     private AgileBootConfig agileBootConfig;
+
+    @NonNull
+    private UserApplicationService userApplicationService;
 
     /**
      * 访问首页，提示语
@@ -123,10 +127,11 @@ public class LoginController {
     }
 
 
-    @Operation(summary = "注册接口", description = "暂未实现")
+    @Operation(summary = "注册接口", description = "注册接口")
     @PostMapping("/register")
-    public ResponseDTO<Void> register(@RequestBody AddUserCommand command) {
-        return ResponseDTO.fail(Business.UNSUPPORTED_OPERATION);
+    public ResponseDTO<String> register(@RequestBody AddUserCommand command) {
+        userApplicationService.register(command);
+        return ResponseDTO.ok("注册成功");
     }
 
 }

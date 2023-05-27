@@ -93,6 +93,8 @@ public enum ErrorCode implements ErrorCodeInterface {
 
         CONFIG_VALUE_IS_NOT_IN_OPTIONS(Module.CONFIG, 2, "参数键值不存在列表中"),
 
+        CONFIG_VALUE_EXIST(Module.CONFIG, 3, "参数键值已存在"),
+
         // ------------------------------- Post --------------------------------------------
 
         POST_NAME_IS_NOT_UNIQUE(Module.POST, 1, "岗位名称:{}, 已存在"),
@@ -172,6 +174,8 @@ public enum ErrorCode implements ErrorCodeInterface {
         USER_CURRENT_USER_CAN_NOT_BE_DELETE(Module.USER, 14, "当前用户不允许被删除"),
 
         USER_ADMIN_CAN_NOT_BE_MODIFY(Module.USER, 15, "管理员不允许做任何修改"),
+
+        USER_REGISTER_DEFAULT_ROLE_UNSET(Module.USER, 16, "未配置用户默认角色"),
 
         ;
 

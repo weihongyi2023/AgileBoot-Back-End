@@ -9,11 +9,12 @@ import com.agileboot.orm.system.entity.SysRoleMenuEntity;
 import com.agileboot.orm.system.service.ISysRoleMenuService;
 import com.agileboot.orm.system.service.ISysRoleService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import java.util.List;
-import java.util.stream.Collectors;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 角色模型工厂
@@ -53,6 +54,5 @@ public class RoleModelFactory {
     public RoleModel create() {
         return new RoleModel(roleService, roleMenuService);
     }
-
 
 }

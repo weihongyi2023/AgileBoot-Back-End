@@ -2,6 +2,7 @@ package com.agileboot.domain.system.user.command;
 
 import com.agileboot.common.annotation.ExcelColumn;
 import lombok.Data;
+import org.springframework.data.annotation.Transient;
 
 /**
  * @author valarchie
@@ -45,5 +46,15 @@ public class AddUserCommand {
     @ExcelColumn(name = "备注")
     private String remark;
 
+    /**
+     * 验证码
+     */
+    @Transient
+    private String code;
 
+    /**
+     * 唯一标识
+     */
+    @Transient
+    private String uuid;
 }
