@@ -1,8 +1,9 @@
 package com.agileboot.orm.common.query;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import javax.validation.constraints.Max;
 import lombok.Data;
+
+import javax.validation.constraints.Max;
 
 /**
  * @author valarchie
@@ -21,5 +22,4 @@ public abstract class AbstractPageQuery<T> extends AbstractQuery<T> {
     public Page<T> toPage() {
         return new Page<>(pageNum, pageSize);
     }
-
 }

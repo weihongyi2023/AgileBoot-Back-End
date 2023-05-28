@@ -11,7 +11,6 @@ import com.agileboot.domain.pms.category.query.CategoryQuery;
 import com.agileboot.orm.pms.entity.CategoryEntity;
 import com.agileboot.orm.pms.service.ICategoryService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.google.common.collect.Lists;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,7 +18,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -39,17 +37,18 @@ public class CategoryApplicationService {
     private ICategoryService categoryService;
 
     public PageDTO<CategoryDTO> getCategoryList(CategoryQuery query) {
+        Page<CategoryEntity> page;
         List<CategoryEntity> list;
         long total;
         if (Objects.isNull(query)){
-            list = Optional.ofNullable(categoryService.list()).orElse(Lists.newArrayList());
-            total= Optional.ofNullable(list.size()).orElse(0);
+            list = categoryService.list(new CategoryQuery().toQueryWrapperTopLevel());
+            total= list.size();
         }else {
-            Page<CategoryEntity> page = categoryService.page(query.toPage(), query.toQueryWrapper());
-            list = Optional.ofNullable(page.getRecords()).orElse(Lists.newArrayList());
-            total = Optional.ofNullable(page.getTotal()).orElse(0L);
+            page = categoryService.page(query.toPage(), query.toQueryWrapper());
+            list = page.getRecords();
+            total = page.getTotal();
         }
-        List<CategoryDTO> records = list.stream().map(CategoryDTO::new).collect(Collectors.toList());
+        List<CategoryDTO> records =list.stream().map(CategoryDTO::new).collect(Collectors.toList());
         List<CategoryDTO> formatTree = formatTree(records);
         return new PageDTO<>(formatTree,total);
     }

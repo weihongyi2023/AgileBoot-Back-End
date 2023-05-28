@@ -1,5 +1,6 @@
 package com.agileboot.domain.pms.category.query;
 
+import com.agileboot.orm.common.enums.StatusEnum;
 import com.agileboot.orm.common.query.AbstractPageQuery;
 import com.agileboot.orm.pms.entity.CategoryEntity;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -40,11 +41,19 @@ public class CategoryQuery extends AbstractPageQuery<CategoryEntity> {
     @Override
     public QueryWrapper<CategoryEntity> toQueryWrapper() {
         QueryWrapper<CategoryEntity> queryWrapper = new QueryWrapper<CategoryEntity>()
-                .like(StringUtils.isNotEmpty(nameLike), "name", nameLike)
-                .eq(Objects.nonNull(showStatus), "show_status", showStatus);
+                .eq(Objects.nonNull(parentId), "parent_id", parentId)
+                .eq(Objects.nonNull(showStatus), "show_status", showStatus)
+                .like(StringUtils.isNotEmpty(nameLike), "name", nameLike);
         addSortCondition(queryWrapper);
         return queryWrapper;
     }
 
+    public QueryWrapper<CategoryEntity> toQueryWrapperTopLevel() {
+        QueryWrapper<CategoryEntity> queryWrapper = new QueryWrapper<CategoryEntity>()
+                .isNull("parent_id")
+                .eq("show_status", StatusEnum.ENABLE.getValue());
+        addSortCondition(queryWrapper);
+        return queryWrapper;
+    }
 
 }
