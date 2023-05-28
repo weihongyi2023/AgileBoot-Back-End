@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
  * @date : 2023/5/28 13:23
  */
 @Service
-public class BrandServiceImpl  extends ServiceImpl<BrandMapper, BrandEntity> implements IBrandService {
+public class BrandServiceImpl extends ServiceImpl<BrandMapper, BrandEntity> implements IBrandService {
 
     /**
      * 校验品牌名是否唯一

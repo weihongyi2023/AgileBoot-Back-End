@@ -181,6 +181,7 @@ public enum ErrorCode implements ErrorCodeInterface {
 
         //------------------------------------------product--------------------------------
         BRAND_NAME_IS_NOT_UNIQUE(Module.PRODUCT, 1, "商品品牌名已被占用"),
+        PRODUCT_CATEGORY_NAME_IS_NOT_UNIQUE(Module.PRODUCT, 2, "商品分类已被占用"),
         //------------------------------------------product--------------------------------
 
         ;
