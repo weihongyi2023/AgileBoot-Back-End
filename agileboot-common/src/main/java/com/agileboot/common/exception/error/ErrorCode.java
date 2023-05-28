@@ -55,6 +55,8 @@ public enum ErrorCode implements ErrorCodeInterface {
 
         FILE_NOT_ALLOWED_TO_DOWNLOAD(Module.COMMON, 3, "文件名称({})非法，不允许下载"),
 
+        STATUS_NOT_ALLOWED_TO_DELETE(Module.COMMON, 4, "启用状态不允许删除"),
+
         // ----------------------------- Permission -----------------------------------
 
         FORBIDDEN_TO_MODIFY_ADMIN(Module.PERMISSION, 1, "不允许修改管理员的信息"),
@@ -176,6 +178,10 @@ public enum ErrorCode implements ErrorCodeInterface {
         USER_ADMIN_CAN_NOT_BE_MODIFY(Module.USER, 15, "管理员不允许做任何修改"),
 
         USER_REGISTER_DEFAULT_ROLE_UNSET(Module.USER, 16, "未配置用户默认角色"),
+
+        //------------------------------------------product--------------------------------
+        BRAND_NAME_IS_NOT_UNIQUE(Module.PRODUCT, 1, "商品品牌名已被占用"),
+        //------------------------------------------product--------------------------------
 
         ;
 

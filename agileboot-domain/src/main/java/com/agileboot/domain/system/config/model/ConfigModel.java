@@ -46,7 +46,6 @@ public class ConfigModel extends SysConfigEntity {
         this.setConfigValue(updateCommand.getConfigValue());
     }
 
-
     public void checkCanBeModify() {
         if (StrUtil.isBlank(getConfigValue())) {
             throw new ApiException(ErrorCode.Business.CONFIG_VALUE_IS_NOT_ALLOW_TO_EMPTY);

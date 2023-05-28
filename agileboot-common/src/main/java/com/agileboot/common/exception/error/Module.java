@@ -61,6 +61,11 @@ public enum Module {
      */
     ROLE(10),
 
+    /**
+     * 商品
+     */
+    PRODUCT(11),
+
     ;
 
 

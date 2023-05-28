@@ -32,7 +32,6 @@ public class UserModelFactory {
     @NonNull
     private RoleModelFactory roleModelFactory;
 
-    @NonNull
     private ConfigModelFactory configModelFactory;
 
     public UserModel loadById(Long userId) {
