@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -38,6 +39,17 @@ public class BrandApplicationService {
         Page<BrandEntity> page = brandService.page(query.toPage(), query.toQueryWrapper());
         List<BrandDTO> records = page.getRecords().stream().map(BrandDTO::new).collect(Collectors.toList());
         return new PageDTO<>(records, page.getTotal());
+    }
+
+    public List<BrandDTO> getAllBrandList(BrandQuery query) {
+        List<BrandEntity> list;
+        if (Objects.isNull(query)){
+            list = brandService.list();
+        }else {
+            list = brandService.list(query.toQueryWrapper());
+        }
+        List<BrandDTO> records =list.stream().map(BrandDTO::new).collect(Collectors.toList());
+        return records;
     }
 
     /**

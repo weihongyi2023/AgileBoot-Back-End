@@ -41,17 +41,8 @@ public class CategoryQuery extends AbstractPageQuery<CategoryEntity> {
     @Override
     public QueryWrapper<CategoryEntity> toQueryWrapper() {
         QueryWrapper<CategoryEntity> queryWrapper = new QueryWrapper<CategoryEntity>()
-                .eq(Objects.nonNull(parentId), "parent_id", parentId)
                 .eq(Objects.nonNull(showStatus), "show_status", showStatus)
                 .like(StringUtils.isNotEmpty(nameLike), "name", nameLike);
-        addSortCondition(queryWrapper);
-        return queryWrapper;
-    }
-
-    public QueryWrapper<CategoryEntity> toQueryWrapperTopLevel() {
-        QueryWrapper<CategoryEntity> queryWrapper = new QueryWrapper<CategoryEntity>()
-                .isNull("parent_id")
-                .eq("show_status", StatusEnum.ENABLE.getValue());
         addSortCondition(queryWrapper);
         return queryWrapper;
     }

@@ -38,8 +38,8 @@ public class CategoryController {
     @ApiOperation("查询商品分类列表")
     @PreAuthorize("@permission.has('pms:category:list')")
     @PostMapping("/list")
-    public ResponseDTO<PageDTO<CategoryDTO>> list(@RequestBody(required = false) CategoryQuery query) {
-        PageDTO<CategoryDTO> list = service.getCategoryList(query);
+    public ResponseDTO<List<CategoryDTO>> list(@RequestBody(required = false) CategoryQuery query) {
+        List<CategoryDTO> list = service.getCategoryList(query);
         return ResponseDTO.ok(list);
     }
 
@@ -74,6 +74,6 @@ public class CategoryController {
         service.deleteCategorys(bulkDeleteCommand);
         return ResponseDTO.ok();
     }
-    
-    
+
+
 }

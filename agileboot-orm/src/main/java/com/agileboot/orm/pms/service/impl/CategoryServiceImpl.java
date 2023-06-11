@@ -6,6 +6,8 @@ import com.agileboot.orm.pms.mapper.CategoryMapper;
 import com.agileboot.orm.pms.service.ICategoryService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -26,7 +28,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, CategoryEnt
      * @return
      */
     @Override
-    public boolean isCategoryNameDuplicated(String name, Integer level) {
+    public boolean isCategoryNameDuplicated(String name, int level) {
         QueryWrapper<CategoryEntity> queryWrapper = new QueryWrapper<CategoryEntity>()
                 .eq(Objects.nonNull(name),"name",name)
                 .eq(Objects.nonNull(level),"level", level)
@@ -35,11 +37,12 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, CategoryEnt
     }
 
     @Override
-    public boolean isCategoryNameDuplicated(String name, Long parentId) {
+    public boolean isCategoryNameDuplicated(long id,String name, Long parentId) {
         QueryWrapper<CategoryEntity> queryWrapper = new QueryWrapper<CategoryEntity>()
-                .eq(Objects.nonNull(name),"name",name)
+                .eq(StringUtils.isNotBlank(name),"name",name)
                 .eq(Objects.nonNull(parentId),"parent_id", parentId)
-                .eq("show_status", StatusEnum.ENABLE.getValue());
+                .eq("show_status", StatusEnum.ENABLE.getValue())
+                .ne("id",id);
         return this.baseMapper.exists(queryWrapper);
     }
 

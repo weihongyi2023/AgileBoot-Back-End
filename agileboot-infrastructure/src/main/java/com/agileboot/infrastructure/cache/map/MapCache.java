@@ -31,7 +31,6 @@ public class MapCache {
     }
 
     private static void initDictionaryCache() {
-
         loadInCache(BusinessTypeEnum.values());
         loadInCache(YesOrNoEnum.values());
         loadInCache(StatusEnum.values());
@@ -41,7 +40,7 @@ public class MapCache {
         loadInCache(OperationStatusEnum.values());
         loadInCache(LoginStatusEnum.values());
         loadInCache(VisibleStatusEnum.values());
-
+        loadInCache(PmsPublishStatusEunm.values());
     }
 
 

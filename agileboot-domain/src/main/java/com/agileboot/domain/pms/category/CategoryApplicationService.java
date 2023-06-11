@@ -36,57 +36,15 @@ public class CategoryApplicationService {
     @NonNull
     private ICategoryService categoryService;
 
-    public PageDTO<CategoryDTO> getCategoryList(CategoryQuery query) {
-        Page<CategoryEntity> page;
+    public List<CategoryDTO> getCategoryList(CategoryQuery query) {
         List<CategoryEntity> list;
-        long total;
-        if (Objects.isNull(query)){
-            list = categoryService.list(new CategoryQuery().toQueryWrapperTopLevel());
-            total= list.size();
+        if (Objects.nonNull(query)){
+            list = categoryService.list(query.toQueryWrapper());
         }else {
-            page = categoryService.page(query.toPage(), query.toQueryWrapper());
-            list = page.getRecords();
-            total = page.getTotal();
+            list = categoryService.list();
         }
-        List<CategoryDTO> records =list.stream().map(CategoryDTO::new).collect(Collectors.toList());
-        List<CategoryDTO> formatTree = formatTree(records);
-        return new PageDTO<>(formatTree,total);
+        return list.stream().map(CategoryDTO::new).collect(Collectors.toList());
     }
-
-    private List<CategoryDTO> formatTree(List<CategoryDTO> nodes) {
-        List<CategoryDTO> tree = new ArrayList<>();
-        List<CategoryDTO> children = new ArrayList<>();
-        // 1）先获取到所有根节点
-        for (CategoryDTO node : nodes) {
-            if (node.getParentId() == null || node.getParentId() == 0) {
-                tree.add(node);
-            } else {
-                children.add(node);
-            }
-        }
-        // 2）把所有除根结点外的节点作为子节点，然后遍历每一个根节点
-        for (CategoryDTO node : tree) {
-            // 3）递归构建此根的子节点
-            recur(node, children);
-        }
-        return tree;
-    }
-
-    private void recur(CategoryDTO rootNode, List<CategoryDTO> children) {
-        // 1）遍历剩余子节点，找出当前根的子节点
-        for (CategoryDTO node : children) {
-            // 2）如果子节点的父id等于根节点的id，那么就将这个节点加到根节点的children列表中
-            if (Objects.equals(rootNode.getId(),node.getParentId())) {
-                if (rootNode.getChildren() == null) {
-                    rootNode.setChildren(new ArrayList<>());
-                }
-                rootNode.getChildren().add(node);
-                // 3）以当前节点作为根节点进行递归，检查是否还有子节点。
-                recur(node, children);
-            }
-        }
-    }
-
 
     public void addCategory(CategoryAddCommand command) {
         CategoryModel model = categoryModelFactory.create();
@@ -97,7 +55,7 @@ public class CategoryApplicationService {
 
     public void updateCategory(CategoryUpdateCommand command) {
         CategoryModel brandModel = categoryModelFactory.loadById(command.getId());
-        brandModel.checkCategoryNameIsUniqueByUpdate(command.getName(),command.getParentId());
+        brandModel.checkCategoryNameIsUniqueByUpdate(command.getId(),command.getName(),command.getParentId());
         brandModel.loadUpdateCommand(command);
         brandModel.updateById();
     }

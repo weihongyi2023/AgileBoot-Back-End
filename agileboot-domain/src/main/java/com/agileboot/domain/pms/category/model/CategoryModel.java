@@ -45,8 +45,8 @@ public class CategoryModel extends CategoryEntity {
         this.setIcon(command.getIcon());
     }
 
-    public void checkCategoryNameIsUniqueByUpdate(String name, Long parentId) {
-        if (categoryService.isCategoryNameDuplicated(name,parentId)) {
+    public void checkCategoryNameIsUniqueByUpdate(long id,String name, Long parentId) {
+        if (categoryService.isCategoryNameDuplicated(id,name,parentId)) {
             throw new ApiException(ErrorCode.Business.PRODUCT_CATEGORY_NAME_IS_NOT_UNIQUE);
         }
     }

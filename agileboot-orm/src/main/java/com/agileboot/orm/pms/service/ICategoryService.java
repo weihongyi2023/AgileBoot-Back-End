@@ -17,7 +17,7 @@ public interface ICategoryService extends IService<CategoryEntity> {
      * @param level
      * @return
      */
-    boolean isCategoryNameDuplicated(String name, Integer level);
+    boolean isCategoryNameDuplicated(String name, int level);
 
-    boolean isCategoryNameDuplicated(String name, Long parentId);
+    boolean isCategoryNameDuplicated(long id,String name, Long parentId);
 }

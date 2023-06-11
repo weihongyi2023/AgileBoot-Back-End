@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -42,6 +43,13 @@ public class BrandController {
     public ResponseDTO<PageDTO<BrandDTO>> list(@RequestBody BrandQuery query) {
         PageDTO<BrandDTO> list = service.getBrandList(query);
         return ResponseDTO.ok(list);
+    }
+
+    @ApiOperation("所有品牌管理列表")
+    @PreAuthorize("@permission.has('pms:brand:list')")
+    @PostMapping("/all")
+    public ResponseDTO<List<BrandDTO>> all(@RequestBody BrandQuery query) {
+        return ResponseDTO.ok(service.getAllBrandList(query));
     }
 
     @ApiOperation("新增品牌管理")
